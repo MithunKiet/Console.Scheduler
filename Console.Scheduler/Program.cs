@@ -17,9 +17,7 @@ class Program
         var serviceProvider = ConfigureServices(logPath);
         var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
 
-        logger.LogInformation("Application started.");
-        logger.LogWarning("This is a warning message.");
-        logger.LogInformation("Application finished.");
+        logger.LogInformation("Application working.");
     }
 
     private static void ConfigureAppSettings()
@@ -87,7 +85,7 @@ public class FileLogger : ILogger
     {
         if (!IsEnabled(logLevel)) return;
 
-        var logFilePath = Path.Combine(_logDirectory, $"log_{DateTime.Now:yyyyMMdd}.log");
+        var logFilePath = Path.Combine(_logDirectory, $"{DateTime.Now:yyyyMMdd}.log");
         var logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{logLevel}] {formatter(state, exception)}";
 
         if (exception != null)
